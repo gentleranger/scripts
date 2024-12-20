@@ -1,0 +1,9 @@
+#This file disables the following internal USB device:
+#VendorID:ProductID
+#    048d:5702
+#This device is used by Gigabyte motherboards as an internal RGB controller.
+SUBSYSTEM=="usb", ATTRS{idVendor}=="048d", ATTRS{idProduct}=="5702", ATTR{authorized}="0", ATTR{remove}="1"
+#After saving this file to: /etc/udev/rules.d/
+#Run: udevadm control --reload-rules
+#     udevadm control --reload
+#     udevadm trigger
