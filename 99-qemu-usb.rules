@@ -1,0 +1,13 @@
+#This file sets USER as the owner of the following physical USB ports:
+#Bus:Port
+#  1:5
+#  3:3
+#  4:3
+#Replace USER with your own username.
+KERNEL=="1-5", OWNER="bubu", MODE="0660"
+KERNEL=="3-3", OWNER="bubu", MODE="0660"
+KERNEL=="4-3", OWNER="bubu", MODE="0660"
+#After saving this file to: /etc/udev/rules.d/
+#Run: udevadm control --reload-rules
+#     udevadm control --reload
+#     udevadm trigger
