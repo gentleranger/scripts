@@ -16,8 +16,8 @@ ovmfFile="/usr/share/edk2/x64/OVMF_CODE.4m.fd"
 mkdir -pv "$isoDir" "$diskDir" "$uefiDir" "$execDir"
 cp "$isoPath" "$isoDir"/
 cp "$ovmfFile" "$uefiDir"/"$vmName".4m.fd
-sync
 qemu-img create -f qcow2 "$diskDir"/"$vmName".qcow2 "$diskSize"
+sync
 
 cat > "$execDir"/"$vmName".sh << EOF
 qemu-system-x86_64 \\
@@ -45,10 +45,12 @@ qemu-system-x86_64 \\
 -net bridge,br=br0
 EOF
 chmod +x "$execDir"/"$vmName".sh
+sleep 5
 
 echo "Running first setup..."
 bash "$execDir"/"$vmName".sh
 
+sleep 2
 qemu-img create -f qcow2 -b "$diskDir"/"$vmName".qcow2 -F qcow2 "$diskDir"/"$vmName"-1.qcow2
 sed -i "\|-cdrom|d" "$execDir"/"$vmName".sh
 sed -i "s|$vmName.qcow2|$vmName-1.qcow2|g" "$execDir"/"$vmName".sh
